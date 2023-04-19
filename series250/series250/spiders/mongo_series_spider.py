@@ -64,7 +64,8 @@ class ImdbSpider(scrapy.Spider):
         items['acteurs'] = response.css('.sc-52d569c6-3 .ipc-metadata-list-item--link a.ipc-metadata-list-item__list-content-item::text').getall()
         items['public'] = response.xpath('//section/div[3]/section/section/div[2]/div[1]/ul/li[3]/a/text()').get()
         items['pays'] = response.css("[data-testid='title-details-origin'] a::text").get()
-        items['duree'] = hours_to_min(items['duree'])
+        if items['duree'] is not None:
+            items['duree'] = hours_to_min(items['duree'])
         
         items_data = {
                 
