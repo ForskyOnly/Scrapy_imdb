@@ -23,7 +23,7 @@ class ImdbSpider(scrapy.Spider):
 
     def write_csv(self, item):
         with open('best250tvshow.csv', 'a', newline='', encoding='utf-8') as csvfile:
-            fieldnames = ['titre', 'titre_origine', 'score', 'genre', 'annee', 'duree', 'description', 'acteurs', 'public', 'pays']
+            fieldnames = ['titre', 'titre_origine', 'score', 'genre', 'annee', 'saisons', 'episodes', 'duree', 'description', 'acteurs', 'public', 'pays']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow({
                 'titre': item['titre'],
@@ -31,6 +31,8 @@ class ImdbSpider(scrapy.Spider):
                 'score': item['score'],
                 'genre': item['genre'],
                 'annee': item['annee'],
+                'saisons': item['saisons'],
+                'episodes': item['episodes'],
                 'duree': item['duree'],
                 'description': item['description'],
                 'acteurs': item['acteurs'],
@@ -46,6 +48,9 @@ class ImdbSpider(scrapy.Spider):
         items['titre_origine'] = response.xpath('//section/section/div[2]/div[1]/div/text()').get()
         items['score'] = response.xpath('//span/div/div[2]/div[1]/span[1]/text()').get()
         items['genre'] = response.xpath('//a[@class="ipc-chip ipc-chip--on-baseAlt"]/span/text()').getall()
+        items['saisons'] = response.xpath("//label[@for='browse-episodes-season']/text()").get()
+        items['saisons'] = items["saisons"][:-8] if items['saisons'] else '1'
+        items['episodes'] = response.css("[data-testid='episodes-header'] span.ipc-title__subtext::text").get()
         items['annee'] = response.xpath('//section/section/div[2]/div[1]/ul/li[2]/a/text()').get()
         items['duree'] = response.xpath('//section/div[3]/section/section/div[2]/div[1]/ul/li[4]/text()').get()
         items['description'] = response.xpath('//section/p/span[2]/text()').get()

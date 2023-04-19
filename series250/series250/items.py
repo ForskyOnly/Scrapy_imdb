@@ -17,3 +17,5 @@ class ImdbData(scrapy.Item):
     acteurs = scrapy.Field()
     public = scrapy.Field()
     pays = scrapy.Field()
+    saisons = scrapy.Field()
+    episodes = scrapy.Field()
