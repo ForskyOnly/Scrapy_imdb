@@ -55,7 +55,7 @@ class ImdbSpider(scrapy.Spider):
         items['titre'] = response.xpath('//section/section/div[2]/div[1]/h1/span/text()').get()
         items['titre_origine'] = response.xpath('//section/section/div[2]/div[1]/div/text()').get()
         items['titre_origine'] = items["titre_origine"][16:] if items['titre_origine'] else None
-        items['score'] = float(response.xpath('//span/div/div[2]/div[1]/span[1]/text()').get())
+        items['score'] = response.xpath('//span/div/div[2]/div[1]/span[1]/text()').get()
         items['genre'] = response.xpath('//a[@class="ipc-chip ipc-chip--on-baseAlt"]/span/text()').getall()
         items['annee'] = response.css('.sc-afe43def-4 li:nth-of-type(1) a::text').get()
         items['duree'] = response.css('.sc-afe43def-4 li:nth-of-type(3)::text').get()
@@ -66,7 +66,7 @@ class ImdbSpider(scrapy.Spider):
         if items['duree'] is not None:
             items['duree'] = hours_to_min(items['duree'])
         items['categorie'] = "film"
-        items['rang'] = int(response.xpath('//a[@data-testid="award_top-rated"]/text()').get()[17:])
+        items['rang'] = response.xpath('//a[@data-testid="award_top-rated"]/text()').get()[17:]
         
        
         items_data = {

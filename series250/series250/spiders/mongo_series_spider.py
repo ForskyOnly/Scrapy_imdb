@@ -7,7 +7,7 @@ from ..items import ImdbData
 load_dotenv()
 
 MONGODB_PWD = os.environ.get("MONGODB_PWD")
-MONGODB_PSEUDO = os.environ.get("M0NGODB_PSEUDO")
+MONGODB_PSEUDO = os.environ.get("MONGODB_PSEUDO")
 MONGODB_DB = 'imdb_data'
 MONGODB_COLLECTION = 'films_series'
 
@@ -54,11 +54,11 @@ class ImdbSpider(scrapy.Spider):
         items['titre'] = response.xpath('//section/section/div[2]/div[1]/h1/span/text()').get()
         items['titre_origine'] = response.xpath('//section/section/div[2]/div[1]/div/text()').get()
         items['titre_origine'] = items["titre_origine"][16:] if items['titre_origine'] else None
-        items['score'] = float(response.xpath('//span/div/div[2]/div[1]/span[1]/text()').get())
+        items['score'] = response.xpath('//span/div/div[2]/div[1]/span[1]/text()').get()
         items['genre'] = response.xpath('//a[@class="ipc-chip ipc-chip--on-baseAlt"]/span/text()').getall()
         items['saisons'] = response.xpath("//label[@for='browse-episodes-season']/text()").get()
-        items['saisons'] = int(items["saisons"][:-8] if items['saisons'] else '1')
-        items['episodes'] = int(response.css("[data-testid='episodes-header'] span.ipc-title__subtext::text").get())
+        items['saisons'] = items["saisons"][:-8] if items['saisons'] else '1'
+        items['episodes'] = response.css("[data-testid='episodes-header'] span.ipc-title__subtext::text").get()
         items['annee'] = response.xpath('//section/section/div[2]/div[1]/ul/li[2]/a/text()').get()
         items['duree'] = response.xpath('//section/div[3]/section/section/div[2]/div[1]/ul/li[4]/text()').get()
         items['description'] = response.xpath('//section/p/span[2]/text()').get()
@@ -68,7 +68,7 @@ class ImdbSpider(scrapy.Spider):
         if items['duree'] is not None:
             items['duree'] = hours_to_min(items['duree'])
         items['categorie'] = "serie"
-        items['rang'] = int(response.xpath('//a[@data-testid="award_top-rated"]/text()').get()[14:])
+        items['rang'] = response.xpath('//a[@data-testid="award_top-rated"]/text()').get()[14:]
         
         items_data = {
                 
