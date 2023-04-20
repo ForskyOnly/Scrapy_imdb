@@ -19,9 +19,10 @@ db = client["imdb_data"]
 collection = db["films_series"]
 
 
-def recherche_par_nom(nom):
-    resultats = collection.find({"$text": {"$search": nom}})
-    return resultats
+def recherche_par_titre(titre):
+    resultats = collection.find({"titre": {"$regex": titre, "$options": "i"}})
+    return list(resultats)
+
 
 def recherche_par_acteur(acteurs):
     resultats = collection.find({"acteurs": {"$in": acteurs}})
@@ -39,15 +40,17 @@ def recherche_par_note_min(note_min):
     resultats = collection.find({"score": {"$gte": note_min}})
     return resultats
 
-st.title("Recherchez un film")
+st.title("Outils de recherche de films")
 st.write("Entrez les critères de recherche ci-dessous")
 
-nom = st.text_input("Recherche par nom")
-if nom:
-    resultats = recherche_par_nom(nom)
-    st.write("Résultats pour la recherche par nom :")
-    for resultat in resultats:
-        st.write(resultat["titre"])
+st.title("Recherche de films par titre")
+titre_recherche = st.text_input("Titre du film")
+if titre_recherche:
+    resultats = recherche_par_titre(titre_recherche)
+    st.write(f"Nombre de résultats: {len(resultats)}")
+    for film in resultats:
+        st.write(film["titre"], "sorti en ", film["annee"], film["genre"], film["duree"],"Minutes")
+
 
 acteurs = st.text_input("Recherche par acteur(s)")
 if acteurs:
