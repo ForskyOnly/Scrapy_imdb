@@ -20,3 +20,4 @@ class ImdbData(scrapy.Item):
     saisons = scrapy.Field()
     episodes = scrapy.Field()
     categorie = scrapy.Field()
+    rang = scrapy.Field()
