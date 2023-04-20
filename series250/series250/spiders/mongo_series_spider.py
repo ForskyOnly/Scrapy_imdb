@@ -77,6 +77,8 @@ class ImdbSpider(scrapy.Spider):
                 'score': items['score'],
                 'genre': items['genre'],
                 'annee': items['annee'],
+                'saisons' : items['saisons'],
+                'espisodes' : items['episodes'],
                 'duree': items['duree'],
                 'description': items['description'],
                 'acteurs': items['acteurs'],
