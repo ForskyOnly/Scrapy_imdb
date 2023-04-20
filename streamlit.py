@@ -71,7 +71,7 @@ if categorie:
         if nom:
             results = collection.find({"categorie": "serie", "titre": {"$regex": nom, "$options": "i"}})
             for result in results:
-                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est une série qui dure",str(result["duree"]),"minutes. Avec ",str(result["episodes"]),"épisodes et ",str(result["saisons"]),"saisons","Le Synopsis en anglais :",result["description"],"Cette série est classé",str(result["rang"]),"eme sur les 250 séries les mieux notés sur IMDB")
+                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est une série qui dure",str(result["duree"]),"minutes pour ",str(result["episodes"]),"épisodes et ",str(result["saisons"]),"saisons .", "Le Synopsis en anglais :",result["description"],"Cette série est classé",str(result["rang"]),"eme sur les 250 séries les mieux notés sur IMDB")
 
     
         st.subheader("Recherche par acteur(s)")
