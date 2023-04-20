@@ -11,7 +11,7 @@ MANGODB_PSEUDO = os.environ.get("MANGODB_PSEUDO")
 MONGODB_DB = 'imdb_data'
 MONGODB_COLLECTION = 'films_series'
 
-connection_todb = f"mongodb+srv://forskyonly:{MONGODB_PWD}@cluster1.rdzhoip.mongodb.net/?retryWrites=true&w=majority"
+connection_todb = f"mongodb+srv://{MANGODB_PSEUDO}:{MONGODB_PWD}@cluster1.rdzhoip.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(connection_todb)
 
 
