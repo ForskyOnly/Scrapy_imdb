@@ -50,48 +50,49 @@ if categorie:
 
       
         st.subheader("Recherche par durée")
-        duree = st.number_input("Durée maximale (en minutes)", min_value=0, max_value=500, value=0)
+        duree = st.number_input("Durée maximale (en minutes)", min_value=0, max_value=500, value=0,key="note1")
         if duree:
             results = collection.find({"categorie": "film", "duree": {"$lte": duree}})
             for result in results:
                 st.write(result["titre"])
 
         st.subheader("Recherche par note minimale")
-        note = st.number_input("Note minimale (sur 10)", min_value=0, max_value=10, value=0)
+        note = st.number_input("Note minimale (sur 10)", min_value=0, max_value=10, value=0,key="note2")
         if note:
-            results = collection.find({"categorie": "film", "score": {"$gte": note}})
+            note_str = "{:.1f}".format(note) 
+            results = collection.find({"categorie": "film", "score": {"$gte": note_str}}) 
             for result in results:
                 st.write(result["titre"])
                 
-if categorie.lower() == "serie":
+    if categorie.lower() == "serie":
 
-    st.subheader("Recherche par nom")
-    nom = st.text_input("Nom de la série")
-    if nom:
-        results = collection.find({"categorie": "serie", "titre": {"$regex": nom, "$options": "i"}})
-        for result in results:
-            st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est une série qui dure",str(result["duree"]),"minutes . Avec ",str(result["episodes"]),"épisodes et ",str(result["saisons"]),"saisons","Le Synopsis en anglais :",result["description"],"Cette série est classé",str(result["rang"]),"eme sur les 250 séries les mieux notés su IMDB")
+        st.subheader("Recherche par nom")
+        nom = st.text_input("Nom de la série")
+        if nom:
+            results = collection.find({"categorie": "serie", "titre": {"$regex": nom, "$options": "i"}})
+            for result in results:
+                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est une série qui dure",str(result["duree"]),"minutes. Avec ",str(result["episodes"]),"épisodes et ",str(result["saisons"]),"saisons","Le Synopsis en anglais :",result["description"],"Cette série est classé",str(result["rang"]),"eme sur les 250 séries les mieux notés su IMDB")
 
-  
-    st.subheader("Recherche par acteur(s)")
-    acteurs = st.text_input("Nom des acteurs (séparés par des virgules)")
-    if acteurs:
-        acteurs_list = [a.strip() for a in acteurs.split(",")]
-        results = collection.find({"categorie": "serie", "acteurs": {"$in": acteurs_list}})
-        for result in results:
-            st.write(result["titre"])
+    
+        st.subheader("Recherche par acteur(s)")
+        acteurs = st.text_input("Nom des acteurs (séparés par des virgules)")
+        if acteurs:
+            acteurs_list = [a.strip() for a in acteurs.split(",")]
+            results = collection.find({"categorie": "serie", "acteurs": {"$in": acteurs_list}})
+            for result in results:
+                st.write(result["titre"])
 
-  
-    st.subheader("Recherche par genre")
-    genre = st.selectbox("Genre", ["", "Comedy", "Drama", "Action", "Sci-Fi", "Mystery", "Thriller", "Crime", "Adventure", "Fantasy", "Horror", "Animation"])
-    if genre:
-        results = collection.find({"categorie": "serie", "genre": genre})
-        for result in results:
-            st.write(result["titre"])
+
+        st.subheader("Recherche par genre")
+        genre = st.selectbox("Genre", ["", "Comedy", "Drama", "Action", "Sci-Fi", "Mystery", "Thriller", "Crime", "Adventure", "Fantasy", "Horror", "Animation"])
+        if genre:
+            results = collection.find({"categorie": "serie", "genre": genre})
+            for result in results:
+                st.write(result["titre"])
 
 
     st.subheader("Recherche par durée d'épisode")
-    duree = st.number_input("Durée maximale d'un épisode (en minutes)", min_value=0, max_value=500, value=0)
+    duree = st.number_input("Durée maximale d'un épisode (en minutes)", min_value=0, max_value=500, value=0,key="note3")
     if duree:
         results = collection.find({"categorie": "serie", "duree": {"$lte": duree}})
         for result in results:
@@ -99,8 +100,10 @@ if categorie.lower() == "serie":
 
 
     st.subheader("Recherche par note minimale")
-    note = st.number_input("Note minimale (sur 10)", min_value=0, max_value=10, value=0)
+    note = st.number_input("Note minimale (sur 10)", min_value=0, max_value=10, value=0,key="note4")
     if note:
-        results = collection.find({"categorie": "serie", "score": {"$gte": note}})
+        note_str = "{:.1f}".format(note) 
+        results = collection.find({"categorie": "serie", "score": {"$gte": note_str}}) 
         for result in results:
             st.write(result["titre"])
+
