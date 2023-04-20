@@ -78,13 +78,14 @@ class ImdbSpider(scrapy.Spider):
                 'genre': items['genre'],
                 'annee': items['annee'],
                 'saisons' : items['saisons'],
-                'espisodes' : items['episodes'],
+                'episodes' : items['episodes'],
                 'duree': items['duree'],
                 'description': items['description'],
                 'acteurs': items['acteurs'],
                 'public': items['public'],
                 'pays': items['pays'],
-                'categorie' : items['categorie']
+                'categorie' : items['categorie'],
+                'rang' : items['rang']
         }
 
 
