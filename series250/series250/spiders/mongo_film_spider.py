@@ -7,11 +7,11 @@ from ..items import ImdbData
 load_dotenv()
 
 MONGODB_PWD = os.environ.get("MONGODB_PWD")
-MANGODB_PSEUDO = os.environ.get("MANGODB_PSEUDO")
+MONGODB_PSEUDO = os.environ.get("MONGODB_PSEUDO")
 MONGODB_DB = 'imdb_data'
 MONGODB_COLLECTION = 'films_series'
 
-connection_todb = f"mongodb+srv://{MANGODB_PSEUDO}:{MONGODB_PWD}@cluster1.rdzhoip.mongodb.net/?retryWrites=true&w=majority"
+connection_todb = f"mongodb+srv://{MONGODB_PSEUDO}:{MONGODB_PWD}@cluster1.rdzhoip.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(connection_todb)
 
 
@@ -87,7 +87,7 @@ class ImdbSpider(scrapy.Spider):
 
 
 
-        client = MongoClient(f'mongodb+srv://{MANGODB_PSEUDO}:{MONGODB_PWD}@cluster1.rdzhoip.mongodb.net/{MONGODB_DB}')
+        client = MongoClient(f'mongodb+srv://{MONGODB_PSEUDO}:{MONGODB_PWD}@cluster1.rdzhoip.mongodb.net/{MONGODB_DB}')
         db = client[MONGODB_DB]
         collection = db[MONGODB_COLLECTION]
         
