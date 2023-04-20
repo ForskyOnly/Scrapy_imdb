@@ -29,7 +29,7 @@ if categorie:
         if nom:
             results = collection.find({"categorie": "film", "titre": {"$regex": nom, "$options": "i"}})
             for result in results:
-                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est un film qui dure",str(result["duree"]),"minutes .","Le Synopsis en anglais:",result["description"],"Ce film est classé",str(result["rang"]),"eme sur les 250 films les mieux notés sue IMDB")
+                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est un film qui dure",str(result["duree"]),"minutes .","Le Synopsis en anglais:",result["description"],"Ce film est classé",str(result["rang"]),"eme sur les 250 films les mieux notés sur IMDB")
 
        
         st.subheader("Recherche par acteur(s)")
@@ -71,7 +71,7 @@ if categorie:
         if nom:
             results = collection.find({"categorie": "serie", "titre": {"$regex": nom, "$options": "i"}})
             for result in results:
-                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est une série qui dure",str(result["duree"]),"minutes. Avec ",str(result["episodes"]),"épisodes et ",str(result["saisons"]),"saisons","Le Synopsis en anglais :",result["description"],"Cette série est classé",str(result["rang"]),"eme sur les 250 séries les mieux notés su IMDB")
+                st.write(result["titre"],str(result["genre"]),"sorti en ",result["annee"],"en",result["pays"],"est une série qui dure",str(result["duree"]),"minutes. Avec ",str(result["episodes"]),"épisodes et ",str(result["saisons"]),"saisons","Le Synopsis en anglais :",result["description"],"Cette série est classé",str(result["rang"]),"eme sur les 250 séries les mieux notés sur IMDB")
 
     
         st.subheader("Recherche par acteur(s)")
